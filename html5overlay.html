@@ -27,7 +27,7 @@
              </video>
             </div>
         <div id="video-overlay" style="position: absolute; z-index: 1; top: 0; left: 0; color: red; border: 2px solid green;"> 
-            <div id="subtitle" style="position: relative; width: auto; text-align:center; border:5px dashed blue;">    
+            <div id="subtitleBox" style="position: relative; width: auto; text-align:center; border:5px dashed blue;">    
                 <!--<h1 style="position: relative; border:1px dashed blue; text-align: center;  justify-content: flex-end; ">overlay</h1>-->
                 <p id="t" style="position: relative; text-align:center; border:1px dashed blue; justify-content: flex-end; "> experimenting with the overlay</p>
             </div>
@@ -40,30 +40,43 @@
 
 
     <script>
-        //setting the initial video to refresh with the page
-	var windowWidth = $(window).width(); 
-	var windowHeight = $(window).height();
-	    
-	
-	    
-	//start with setting the height of the video to the size of the window
-	$("videoplay").height(windowHeight);
-	 
-	//setting the overlay to match the video size
-	var videoWidth = $("videoplay").width();
-	var videoHeight = $("videoplay").height();
-	    
-	$("video-overlay").width(videoWidth);
-	$("video-overlay").width(videoHeight);
-    
-	
-	    
-	    
-	    
-	$(window).resize()
-
-
         
+        //initial height for video
+        var windowHeight = $(window).height();
+        $("#videoplay").height(windowHeight - 20);
+        $("#videoplay").focus();
+
+        //sets the overlay relative to the video dimentions
+        var videoHeight = $("#videoplay").height();
+        var videoWidth = $("#videoplay").width();
+        $("#video-overlay").css("width", videoWidth);
+        $("#video-overlay").css("height", videoHeight);
+        
+        //sets the subtitle div position and the height
+        $("#subtitleBox").css("top", videoHeight * .8);
+        var subTopPos = ($("#subtitleBox").css("top")).replace('px', '');
+        var subHeight = (videoHeight - subTopPos);
+        $("#subtitleBox").height(subHeight - 5);
+
+
+        //function upon window resize
+        $(window).resize(function () {
+            windowHeight = $(window).height();
+            $("#videoplay").height(windowHeight - 20);
+            $("#videoplay").focus();
+
+            videoHeight = $("#videoplay").height();
+            videoWidth = $("#videoplay").width();
+            $("#video-overlay").css("height", videoHeight);
+            $("#video-overlay").css("width", videoWidth);
+
+
+            //sets the subtitle div position and the height
+            $("#subtitleBox").css("top", videoHeight * .8);
+            subTopPos = ($("#subtitleBox").css("top")).replace('px', '');
+            subHeight = (videoHeight - subTopPos);
+            $("#subtitleBox").height(subHeight - 5);
+        });
 
 
     </script>
