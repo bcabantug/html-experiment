@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+    
+    <style>
+        /*#video {
+            height: 90vh;
+        }*/
+
+        #video-overlay h1, #video-overlay h1 p{
+           word-wrap:normal;
+           font-size: 10vh;   
+        }
+
+    </style>
+
+    <div id="video-banner" style="position: relative;">
+           <div id="video" style="position: relative; z-index: 0; ">
+             <video id="videoplay" width="100%" height="100%"   autoplay loop style= "object-fit:fill;">
+                 <source src="http://video.webmfiles.org/big-buck-bunny_trailer.webm" type="video/webm">
+             </video>
+            </div>
+        <div id="video-overlay" style="position: absolute; z-index: 1; top: 0; left: 0; color: red; border: 2px solid green;"> 
+            <div id="subtitle" style="position: relative; width: auto; text-align:center; border:5px dashed blue;">    
+                <!--<h1 style="position: relative; border:1px dashed blue; text-align: center;  justify-content: flex-end; ">overlay</h1>-->
+                <p id="t" style="position: relative; text-align:center; border:1px dashed blue; justify-content: flex-end; "> experimenting with the overlay</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-below" style="position: relative; margin: 20px;">
+           This is some text below.
+    </div>
+
+
+    <script>
+        //width:100%; height:100%;
+        //var height = document.getElementById("videoplay").getAttribute("height"); 95vh
+        //var width = document.getElementById("videoplay").getAttribute("width");
+
+        //var height = $("#videoplay").height();
+        //var width = $("#videoplay").width();
+
+        var height = document.getElementById("videoplay").getAttribute("height");
+        var width = document.getElementById("videoplay").getAttribute("width");
+
+        //document.write(height + " ");
+        //document.write(width);
+
+        var vidOver = document.getElementById("video-overlay");
+        vidOver.style.height = height;
+        vidOver.style.width = width;
+
+        //document.write(height + " ");
+        //document.write(width);
+
+        //gets the current height of the window (-20px to have it match the frame)
+        var heightWindow = window.innerHeight - 20;
+        //sets the video height as the current height of the window on 
+        var videoHeightMatch = document.getElementById("videoplay");
+        videoHeightMatch.height = heightWindow;
+
+        //////////////////////////////////////////////
+        //setting the overlay/subtitle text position
+        var subtitles = document.getElementById("subtitle");
+        var currentSubPos = (heightWindow * .8);
+        subtitles.style.top = currentSubPos + "px";
+
+        //setting the auto height for the sub box
+        var subHeight = document.getElementById("subtitle");
+        var subH = (heightWindow - currentSubPos);
+        subHeight.style.height = subH + "px";
+
+        document.write();
+
+
+        var updatedSubPos = currentSubPos;
+        ///////////////////////////////////////////
+        //function that changes the size of the video on resize (based on the body being resized)
+        document.body.onresize = function () { resizeVid() };
+
+        //resize function
+        function resizeVid() {
+            //gets the height of the window after resize
+            var newHeight = window.innerHeight;
+            //calculates whether height of window is less or more
+            var txt = heightWindow - newHeight;
+            //"adds the difference" to the last height window and assigns it as the new videoheight for the window
+            videoHeightMatch.height = heightWindow - txt - 20;
+            //var videoo = document.getElementById("video");
+            //videoo.style.height = heightWindow;
+
+
+            //setting the subtitle overlay to move with the video
+            //var newSubPos = (heightWindow * .8);
+            //var diffSubPos = currentSubPos - newSubPos;
+
+            //var updatedSubPos = currentSubPos - diffSubPos;
+
+            //console.log(updatedSubPos);
+
+            //document.getElementById("subtitle").style.top = currentSubPos + "px";
+
+        }
+
+
+    </script>
+    
+
+    
+</body>
+</html>
