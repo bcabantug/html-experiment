@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title></title>
@@ -12,12 +12,10 @@
         /*#video {
             height: 90vh;
         }*/
-
         #video-overlay h1, #video-overlay h1 p{
            word-wrap:normal;
            font-size: 10vh;   
         }
-
     </style>
 
     <div id="video-banner" style="position: relative;">
@@ -41,11 +39,14 @@
 
     <script>
         
+        //$("#t").css("font-size", "10vh");
+        //var to set initial change window count
+        var changeAmount = 1;
+
         //initial height for video
         var windowHeight = $(window).height();
         $("#videoplay").height(windowHeight - 20);
         $("#videoplay").focus();
-
         //sets the overlay relative to the video dimentions
         var videoHeight = $("#videoplay").height();
         var videoWidth = $("#videoplay").width();
@@ -57,28 +58,33 @@
         var subTopPos = ($("#subtitleBox").css("top")).replace('px', '');
         var subHeight = (videoHeight - subTopPos);
         $("#subtitleBox").height(subHeight - 5);
-
-
         //function upon window resize
         $(window).resize(function () {
+            //experimenting with changing text upon resize (possible timing of subtitles?)
+            changeAmount = changeAmount + 1;
+            var n = changeAmount;
+
             windowHeight = $(window).height();
             $("#videoplay").height(windowHeight - 20);
             $("#videoplay").focus();
-
             videoHeight = $("#videoplay").height();
             videoWidth = $("#videoplay").width();
             $("#video-overlay").css("height", videoHeight);
             $("#video-overlay").css("width", videoWidth);
-
-
             //sets the subtitle div position and the height
             $("#subtitleBox").css("top", videoHeight * .8);
             subTopPos = ($("#subtitleBox").css("top")).replace('px', '');
             subHeight = (videoHeight - subTopPos);
             $("#subtitleBox").height(subHeight - 5);
+
+            //changing text upon resize
+            $("#t").html(n.toString());
+
+            //changing text with the video change
+            $("#t").css("font-size", "30px");
+
+
         });
-
-
     </script>
     
 
